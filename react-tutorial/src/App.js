@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Table from './Table'
-function App() {
-    const characters = [
-      {
+
+
+
+class App extends Component {
+
+state = {
+    characters: [
+        {
         name: 'Charlie',
         job: 'Janitor',
       },
@@ -19,14 +24,32 @@ function App() {
       {
         name: 'Dennis',
         job: 'Bartender',
-      },
-    ]
+      }
+
+    ],
+  }
+
+    removeCharacter = index => {
+  const { characters } = this.state
+
+  this.setState({
+    characters: characters.filter((character, i) => {
+      return i !== index
+    }),
+  })
+}
+
+
+render() {
+  const { characters } = this.state
 
   return (
     <div className="container">
-         <Table characterData={characters} />
+      <Table characterData={characters} removeCharacter={this.removeCharacter} />
     </div>
-  );
+  )
 }
+  }
+
 
 export default App;
